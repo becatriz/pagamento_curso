@@ -1,0 +1,56 @@
+.container {
+  display: flex;
+  margin-bottom: 50px;
+}
+
+.containerCard {
+  width: 210px;
+  height: 180px;
+  background: rgb(66, 64, 64);
+  border-radius: 10px 10px 0 0;
+  margin-left: 15px;
+  margin-top: 20px;
+  
+
+  text-align: center;
+  font-size: large;
+  font-weight: bold;
+  color: white;
+
+  padding: 1rem;
+}
+
+.containerValues {
+  background: rgb(29, 37, 35);
+  width: 210px;
+  padding: 1rem;
+  border-radius: 0 0 10px 10px;
+  margin-left: 15px;
+  
+  
+
+  &__values {
+    font-weight: bold;
+    text-align: right;
+    padding-bottom: 20px;
+    color: white;
+    border-bottom: 2px solid rgb(243, 176, 176);
+  }
+
+  &__button {
+    width: 200px;
+    height: 20px;
+    outline: none;
+    border: 0;
+    background: transparent;
+    font-weight: bold;
+    color: rgb(197, 84, 84);
+    margin-top: 15px;
+
+    transition: color 0.2s;
+
+    &:hover {
+      color: rgb(235, 224, 224);
+    }
+  }
+}

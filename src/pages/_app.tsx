@@ -1,7 +1,14 @@
-import '../styles/globals.scss'
+import { Header } from "../components/Header";
+import { CartProvider } from "../contexts/CartContext";
+import "../styles/globals.scss";
 
 function MyApp({ Component, pageProps }) {
-  return <Component {...pageProps} />
+  return (
+    <CartProvider>
+      <Header />
+      <Component {...pageProps} />
+    </CartProvider>
+  );
 }
 
-export default MyApp
+export default MyApp;
