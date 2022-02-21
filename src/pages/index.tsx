@@ -1,28 +1,51 @@
 import { Card } from "../components/Card";
 import { GetStaticProps } from "next";
-import { api } from "../services/api";
+import { api } from "../services/api/api";
+
 import styles from "../styles/Home.module.scss";
 
-interface Courses {
-  uuid: string;
+interface ProductPriceProps {
+  id: string;
+  active: boolean;
+  product: string;
+  unit_amount: number;
+  images: string;
+}
+
+interface ProductProps {
+  id_price: string;
+  product_id: string;
+  amount: number;
+}
+
+interface ProductFormattedProps {
+  id: string;
+  price_id: string;
+  price: number;
   name: string;
-  price: string;
+  image: string;
+  currency: string;
 }
 
-interface CoursesProps {
-  courses: Courses[];
+interface Products {
+  products: ProductFormattedProps[];
 }
 
-export default function Home({ courses }: CoursesProps) {
+
+export default function Home({ products }: Products) {
   return (
     <div className={styles.container}>
       <div className={styles.card}>
-        {courses.map((value) => (
+        {products.map((value) => (
           <Card
-            key={value.uuid}
+            key={value.id}
             name={value.name}
-            price={value.price}
-            uuid={value.uuid}
+            image={value.image}
+            productId={value.price_id}
+            price={new Intl.NumberFormat("pt-BR", {
+              style: "currency",
+              currency: "BRL",
+            }).format(value.price / 100)}
           />
         ))}
       </div>
@@ -31,11 +54,56 @@ export default function Home({ courses }: CoursesProps) {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const response = await api.get("/courses");
+  const productsPrices = await getProductsPrices();
+  const products = await getProductsFormatted(productsPrices);
+
+  async function getProductsPrices() {
+    const { data } = await api.get(`prices`);
+
+    return data.data.reduce(
+      (acc: ProductPriceProps[], item: ProductPriceProps) => {
+        if (item.active) {
+          return [
+            ...acc,
+            {
+              id_price: item.id,
+              amount: item.unit_amount,
+              product_id: item.product,
+            },
+          ];
+        }
+
+        return acc;
+      },
+      []
+    );
+  }
+
+  async function getProductsFormatted(productsPrices: ProductProps[]) {
+    return await productsPrices.reduce(
+      async (promisedAcc: any, item: ProductProps) => {
+        const { data } = await api.get(`products/${item.product_id}`);
+        const acc = await promisedAcc;
+
+        return [
+          {
+            id: item.product_id,
+            currency: "BRL",
+            price_id: item.id_price,
+            name: data.name,
+            price: item.amount,
+            image: data.images[0],
+          },
+          ...acc,
+        ];
+      },
+      []
+    );
+  }
 
   return {
     props: {
-      courses: response.data,
+      products,
     },
   };
 };

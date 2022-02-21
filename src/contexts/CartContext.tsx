@@ -6,11 +6,11 @@ interface CartContextProviderprops {
 }
 
 interface ItemCartProps {
-  uuid: string;
+  price: string;
 }
 
 type CartContextData = {
-  addItemInCart: (uuid: string) => void;
+  addItemInCart: (price: string) => void;
   cartItem: ItemCartProps[]
 };
 
@@ -21,14 +21,14 @@ export const CartContext = createContext<CartContextData>(
 export function CartProvider({ children }: CartContextProviderprops) {
   const [cartItem, setCartItem] = useState<ItemCartProps[]>([]);
 
-  function addItemInCart(uuid: string) {
+  function addItemInCart(price: string) {
     const updatedCart = [...cartItem];
 
-    const courseUuid = {
-      uuid,
+    const courseIdPrice = {
+      price,
     };
 
-    updatedCart.push(courseUuid);
+    updatedCart.push(courseIdPrice);
     setCartItem(updatedCart);
   }
 
