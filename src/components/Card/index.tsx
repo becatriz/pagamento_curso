@@ -1,18 +1,20 @@
+/* eslint-disable @next/next/no-img-element */
 import { useContext } from "react";
 import { CartContext } from "../../contexts/CartContext";
 import styles from "./_styles.module.scss";
 
 interface Courses {
-  uuid: string;
+  productId: string;
   name: string;
   price: string;
+  image?: string;
 }
 
-export function Card({ uuid, name, price }: Courses) {
+export function Card({ productId, name, price, image }: Courses) {
   const { addItemInCart } = useContext(CartContext);
 
-  function handleAddItemCart(uuid: string) {
-    addItemInCart(uuid);
+  function handleAddItemCart(productId: string) {
+    addItemInCart(productId);
   }
 
   return (
@@ -20,12 +22,13 @@ export function Card({ uuid, name, price }: Courses) {
       <div>
         <div className={styles.containerCard}>{name}</div>
         <div className={styles.containerValues}>
+          <img src={image} alt="imagem-curso"/>
           <p className={styles.containerValues__values}>{price}</p>
           <button
-            onClick={() => handleAddItemCart(uuid)}
+            onClick={() => handleAddItemCart(productId)}
             className={styles.containerValues__button}
           >
-            Comprar
+            Adicionar
           </button>
         </div>
       </div>

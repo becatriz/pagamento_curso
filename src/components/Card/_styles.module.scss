@@ -1,16 +1,15 @@
 .container {
   display: flex;
   margin-bottom: 50px;
+ 
 }
 
 .containerCard {
   width: 210px;
-  height: 180px;
   background: rgb(66, 64, 64);
   border-radius: 10px 10px 0 0;
   margin-left: 15px;
   margin-top: 20px;
-  
 
   text-align: center;
   font-size: large;
@@ -23,11 +22,16 @@
 .containerValues {
   background: rgb(29, 37, 35);
   width: 210px;
+  height: 280px;
   padding: 1rem;
   border-radius: 0 0 10px 10px;
   margin-left: 15px;
   
-  
+  img{
+    width: 150px;
+    height: 140px;
+    
+  }
 
   &__values {
     font-weight: bold;
@@ -38,8 +42,7 @@
   }
 
   &__button {
-    width: 200px;
-    height: 20px;
+    width: 180px;
     outline: none;
     border: 0;
     background: transparent;
