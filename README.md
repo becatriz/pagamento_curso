@@ -19,4 +19,4 @@ Integração com API Stripe
 
 ## Post Blog Medium
 Escrevi um Post no medium ensinado como realizar a integração com essa API.<br/>
-Link:
+Link: https://becatriz7.medium.com/integrando-api-de-pagamento-stripe-com-nextjs-em-um-site-est%C3%A1tico-ssg-e6eabbb0bf60
